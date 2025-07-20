@@ -53,6 +53,27 @@
             width: 100%;
             z-index: 100;
         }
+        .whatsapp-float {
+            position: fixed;
+            bottom: 90px; /* au-dessus du footer */
+            right: 20px;
+            z-index: 200;
+            background-color: #25d366;
+            color: white;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            font-size: 2rem;
+            transition: background 0.2s;
+        }
+        .whatsapp-float:hover {
+            background-color: #128c7e;
+            color: #fff;
+        }
     </style>
 </head>
 <body>
@@ -192,5 +213,8 @@
             </div>
         </div>
     </footer>
+    <a href="https://wa.me/+212600644006" class="whatsapp-float" target="_blank" title="WhatsApp">
+        <i class="bi bi-whatsapp"></i>
+    </a>
 </body>
 </html>
