@@ -10,18 +10,18 @@
 <body>
     <div class="container mt-5">
         <h2 class="mb-4 text-center">Formulaire de contact</h2>
-        <form action="mailto:diakhatedaouda131@gmail.com" method="post" enctype="text/plain">
+        <form action="mailto:diakhatedaouda131@gmail.com" method="post" enctype="text/plain" autocomplete="off">
             <div class="mb-3">
                 <label for="nom" class="form-label">Nom</label>
-                <input type="text" class="form-control" id="nom" name="Nom" required>
+                <input type="text" class="form-control" id="nom" name="Nom" required minlength="2" autocomplete="off">
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" name="Email" required>
+                <input type="email" class="form-control" id="email" name="Email" required autocomplete="off">
             </div>
             <div class="mb-3">
                 <label for="message" class="form-label">Message</label>
-                <textarea class="form-control" id="message" name="Message" rows="5" required></textarea>
+                <textarea class="form-control" id="message" name="Message" rows="5" required minlength="10" autocomplete="off"></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Envoyer</button>
         </form>
