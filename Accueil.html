@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8" />
+
+     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu</title>
     <!-- Bootstrap CSS -->
@@ -10,8 +11,14 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Ton fichier CSS personnalisé -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Ton fichier JS personnalisé -->
+    <script src="script.js"></script>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <!-- Bootstrap Icons CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- navigation styles -->
     <style>
         html, body {
             height: 100%;
@@ -40,13 +47,11 @@
         .navbar-brand:hover, .nav-link:hover {
             color: #000 !important;
         }
-        
         /* Logo responsive */
         .navbar-brand img {
             width: 80px;
             height: 80px;
         }
-        
         /* Bouton hamburger plus grand sur mobile */
         .navbar-toggler {
             border: 2px solid #fff;
@@ -60,13 +65,11 @@
             width: 1.5em;
             height: 1.5em;
         }
-        
         /* Images avec bordure */
         img:not(.navbar-brand img) {
             border: 8px solid #F0F;
             border-radius: 10px;
         }
-        
         /* Footer */
         footer {
             background-color: #F0F;
@@ -77,7 +80,6 @@
             z-index: 100;
             padding: 1rem 0;
         }
-        
         /* Bouton WhatsApp plus grand et mieux positionné */
         .whatsapp-float {
             position: fixed;
@@ -103,29 +105,24 @@
             color: #fff;
             transform: scale(1.1);
         }
-        
         /* Espacement mobile */
         .container-fluid {
             padding: 0 15px;
         }
-        
         /* Responsive pour mobile */
         @media (max-width: 768px) {
             .navbar-brand img {
                 width: 60px;
                 height: 60px;
             }
-            
             .navbar-toggler {
                 padding: 10px 15px;
                 font-size: 1.4rem;
             }
-            
             .navbar-toggler-icon {
                 width: 1.8em;
                 height: 1.8em;
             }
-            
             .whatsapp-float {
                 width: 65px;
                 height: 65px;
@@ -133,72 +130,67 @@
                 bottom: 130px;
                 right: 15px;
             }
-            
             .nav-link {
                 font-size: 1.2rem;
                 padding: 0.8rem 1rem;
             }
-            
-            /* Espacement entre les images sur mobile */
             .row {
                 margin-bottom: 1rem;
             }
-            
             [class*="col-"] {
                 margin-bottom: 1rem;
             }
-            
-            /* Footer plus compact sur mobile */
             footer {
                 padding: 0.8rem 0;
             }
-            
             footer p {
                 font-size: 0.9rem;
                 margin-bottom: 0.5rem;
             }
-            
             footer .bi {
                 font-size: 1.8rem !important;
                 margin: 0 0.5rem;
             }
         }
-        
-        /* Très petits écrans */
         @media (max-width: 576px) {
             .whatsapp-float {
                 width: 60px;
-                height: 60px;
+               
                 font-size: 2rem;
                 bottom: 120px;
                 right: 10px;
             }
-            
             .navbar-toggler {
                 padding: 12px 18px;
             }
-            
             .container-fluid {
                 padding: 0 10px;
             }
         }
+        body { font-family: Arial, sans-serif; margin: 0; background: #f5f5f5; }
+        header { background: #222; color: #fff; padding: 20px; text-align: center; }
+        nav { background: #007b3a; padding: 12px 0; }
+        nav ul { list-style: none; margin: 0; padding: 0; display: flex; justify-content: center; gap: 32px; }
+        nav ul li { display: inline; }
+        nav ul li a { color: #fff; text-decoration: none; font-weight: bold; font-size: 1em; transition: color 0.2s; }
+        nav ul li a:hover { color: #ffd700; }
+        .container { max-width: 1200px; margin: 30px auto; padding: 20px; border-radius: 8px; }
+        h1 { margin-top: 0; }
+        .clothes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; }
+        .clothes-item { background: #fafafa; border: 1px solid #ddd; border-radius: 6px; padding: 16px; text-align: center; }
+        .clothes-item img { width: 100%; height: 220px; object-fit: cover; border-radius: 4px; }
+        .clothes-item h2 { font-size: 1.1em; margin: 12px 0 8px; }
+        .clothes-item p { color: #555; margin: 0 0 8px; }
+        .clothes-item .price { font-weight: bold; color: #007b3a; }
     </style>
 </head>
 <body>
-    <!-- Message d'accueil Bootstrap -->
-    <div class="container mt-4">
-        <div class="alert alert-success text-center" role="alert">
-            <h4 class="alert-heading">Bienvenue sur le site Sokhhna Bousso Zara !</h4>
-            <p>Découvrez nos produits et profitez de votre visite.</p>
-        </div>
-    </div>
+
     <!-- debut Menu de navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
-            <a class="navbar-brand" href="Accueil.html">
-                <img src="LogoBousso.PNG?text=LOGO" alt="LogoBousso" class="d-inline-block align-text-top">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand" href="Accueil.html">Accueil</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -210,7 +202,7 @@
                         <a class="nav-link" href="contact.html">Contact</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="contact.html">Homme</a>
+                        <a class="nav-link" href="Homme.html">Homme</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="contact.html">Femme</a>
@@ -221,105 +213,77 @@
     </nav>
     <!-- Fin Menu de navigation -->
 
-    <div class="main-content">
-        <!-- Début Body -->
-        <div class="container-fluid mt-4">
-            <div class="row">
-                <div class="col-4">
-                    <img src="TeeShirt16.jpeg" alt="Image 1" class="img-fluid">
-                </div>
-                <div class="col-4">
-                    <img src="TeeShirt2.jpeg" alt="Image 2" class="img-fluid">
-                </div>
-                <div class="col-4">
-                    <img src="TeeShirt11.jpeg" alt="Image 3" class="img-fluid">
-                </div>
+    <!-- Ajoute ici le contenu spécifique à la page Homme -->
+    <header>
+        <h1>Vêtements Homme - Principaux Articles</h1>
+    </header>
+    <div class="container">
+        <div class="clothes-grid">
+            <div class="clothes-item">
+                <img src="TeeShirt1.jpeg" alt="T-shirt classique">
+                <h2>T-shirt Classique</h2>
+                <p>100% coton, disponible en plusieurs couleurs.</p>
+                <div class="price">€19.99</div>
             </div>
-        </div>
-        
-        <!-- Groupe image 2 -->
-        <div class="container-fluid mt-4">
-            <div class="row">
-                <div class="col-4">
-                    <img src="TeeShirt10.jpeg" alt="Image 4" class="img-fluid">
-                </div>
-                <div class="col-4">
-                    <img src="TeeShirt5.jpeg" alt="Image 5" class="img-fluid">
-                </div>
-                <div class="col-4">
-                    <img src="TeeShirt6.jpeg" alt="Image 6" class="img-fluid">
-                </div>
+            <div class="clothes-item">
+                <img src="TeeShirt2.jpeg" alt="Jean Slim">
+                <h2>Jean Slim</h2>
+                <p>Coupe moderne, confortable et résistant.</p>
+                <div class="price">€39.99</div>
             </div>
-        </div>
-        
-        <!-- Groupe image 3 -->
-        <div class="container-fluid mt-4">
-            <div class="row">
-                <div class="col-4">
-                    <img src="TeeShirt1.jpeg" alt="Image 7" class="img-fluid">
-                </div>
-                <div class="col-4">
-                    <img src="TeeShirt2.jpeg" alt="Image 8" class="img-fluid">
-                </div>
-                <div class="col-4">
-                    <img src="TeeShirt12.jpeg" alt="Image 9" class="img-fluid">
-                </div>
+            <div class="clothes-item">
+                <img src="TeeShirt10.jpeg" alt="Chemise élégante">
+                <h2>Chemise Élégante</h2>
+                <p>Idéale pour le bureau ou les sorties.</p>
+                <div class="price">€29.99</div>
             </div>
-        </div>
-        
-        <!-- Groupe image 4 -->
-        <div class="container-fluid mt-4">
-            <div class="row">
-                <div class="col-4">
-                    <img src="TeeShirt10.jpeg" alt="Image 10" class="img-fluid">
-                </div>
-                <div class="col-4">
-                    <img src="TeeShirt11.jpeg" alt="Image 11" class="img-fluid">
-                </div>
-                <div class="col-4">
-                    <img src="TeeShirt12.jpeg" alt="Image 12" class="img-fluid">
-                </div>
+            <div class="clothes-item">
+                <img src="TeeShirt11.jpeg" alt="Veste en jean">
+                <h2>Veste en Jean</h2>
+                <p>Style intemporel, parfaite pour toutes saisons.</p>
+                <div class="price">€49.99</div>
             </div>
-        </div>
-        
-        <!-- Groupe image 5 -->
-        <div class="container-fluid mt-4 mb-5">
-            <div class="row">
-                <div class="col-4">
-                    <img src="TeeShirt12.jpeg" alt="Image 13" class="img-fluid">
-                </div>
-                <div class="col-4">
-                    <img src="TeeShirt13.jpeg" alt="Image 14" class="img-fluid">
-                </div>
-                <div class="col-4">
-                    <img src="TeeShirt15.jpeg" alt="Image 15" class="img-fluid">
-                </div>
+            <div class="clothes-item">
+                <img src="TeeShirt12.jpeg" alt="Pull en laine">
+                <h2>Pull en Laine</h2>
+                <p>Chaud et doux, idéal pour l'hiver.</p>
+                <div class="price">€34.99</div>
+            </div>
+            <div class="clothes-item">
+                <img src="TeeShirt13.jpeg" alt="Short décontracté">
+                <h2>Short Décontracté</h2>
+                <p>Parfait pour les journées estivales.</p>
+                <div class="price">€24.99</div>
+            </div>
+            <div class="clothes-item">
+                <img src="TeeShirt16.jpeg" alt="Sweat à capuche">
+                <h2>Sweat à Capuche</h2>
+                <p>Confortable et stylé, pour un look décontracté.</p>
+                <div class="price">€39.99</div>
+            </div>
+            <div class="clothes-item">
+                <img src="TeeShirt15.jpeg" alt="Bermuda">
+                <h2>Bermuda</h2>
+                <p>Confortable pour les journées chaudes.</p>
+                <div class="price">€29.99</div>
             </div>
         </div>
     </div>
-
     <!-- Footer -->
-    <footer class="text-white text-center py-3">
-        <div class="container">
-            <p class="mb-1">&copy; 2025 Sokhhna Bousso Zara. Tous droits réservés.</p>
-            <p class="mb-2">
-                <a href="contact.html" class="text-white text-decoration-underline">Contactez-nous</a>
-            </p>
+    <footer>
+        <div class="container text-center">
+            <p>&copy; 2023 MonSiteDeVêtements. Tous droits réservés.</p>
             <div>
-                <a href="https://www.tiktok.com/" target="_blank" class="text-white me-3" title="TikTok">
-                    <i class="bi bi-tiktok" style="font-size: 1.5rem;"></i>
-                </a>
-                <a href="https://www.facebook.com/" target="_blank" class="text-white me-3" title="Facebook">
-                    <i class="bi bi-facebook" style="font-size: 1.5rem;"></i>
-                </a>
-                <a href="https://www.instagram.com/" target="_blank" class="text-white" title="Instagram">
-                    <i class="bi bi-instagram" style="font-size: 1.5rem;"></i>
-                </a>
+                <a href="https://www.facebook.com" target="_blank" class="bi bi-facebook" style="font-size: 1.5rem; color: #fff;"></a>
+                <a href="https://www.twitter.com" target="_blank" class="bi bi-twitter" style="font-size: 1.5rem; color: #fff;"></a>
+                <a href="https://www.instagram.com" target="_blank" class="bi bi-instagram" style="font-size: 1.5rem; color: #fff;"></a>
             </div>
         </div>
     </footer>
-    
-    <a href="https://wa.me/+212600644006?text=Bonjour,%20je%20souhaite%20plus%20d'informations." class="whatsapp-float" target="_blank" title="WhatsApp">
+    <!-- Fin Footer -->
+
+    <!-- Bouton WhatsApp flottant -->
+    <a href="https://api.whatsapp.com/send?phone=1234567890&text=Bonjour%20je%20suis%20intéressé%20par%20vos%20vêtements." class="whatsapp-float" target="_blank">
         <i class="bi bi-whatsapp"></i>
     </a>
 </body>
