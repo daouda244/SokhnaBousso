@@ -1,24 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-     <meta charset="UTF-8" />
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu</title>
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Ton fichier CSS personnalisé -->
     <link rel="stylesheet" href="style.css">
-    <!-- Ton fichier JS personnalisé -->
     <script src="script.js"></script>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <!-- Bootstrap Icons CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <!-- navigation styles -->
     <style>
         html, body {
             height: 100%;
@@ -178,7 +170,7 @@
         h1 { margin-top: 0; }
         .clothes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; }
         .clothes-item { background: #fafafa; border: 1px solid #ddd; border-radius: 6px; padding: 16px; text-align: center; }
-        .clothes-item img { width: 100%; height: 220px; object-fit: cover; border-radius: 4px; }
+        .clothes-item img { width: 100%; height: 300px; object-fit: cover; border-radius: 4px; }
         .clothes-item h2 { font-size: 1.1em; margin: 12px 0 8px; }
         .clothes-item p { color: #555; margin: 0 0 8px; }
         .clothes-item .price { font-weight: bold; color: #007b3a; }
@@ -218,7 +210,10 @@
         <h1>Vêtements Homme - Principaux Articles</h1>
     </header>
     <div class="container">
-        <div class="clothes-grid">
+        <div class="clothes-grid" id="mainClothesGrid">
+            <!-- Les images uploadées par l'admin seront affichées ici en haut -->
+        </div>
+        <div class="clothes-grid" id="defaultClothesGrid">
             <div class="clothes-item">
                 <img src="TeeShirt1.jpeg" alt="T-shirt classique">
                 <h2>T-shirt Classique</h2>
@@ -269,6 +264,193 @@
             </div>
         </div>
     </div>
+
+    <!-- Ajout d'un espace pour uploader des images (visible seulement pour l'admin) -->
+    <div class="container my-4" id="adminUploadSection" style="display:none;">
+        <h3 class="mb-3">Ajouter des images de vêtements</h3>
+        <input type="file" id="imageUpload" multiple accept="image/*" class="form-control mb-3">
+        <button id="addToGallery" class="btn btn-primary mb-3" style="display:none;">Ajouter à la galerie</button>
+        <button id="logoutAdmin" class="btn btn-secondary mb-3" style="display:none;">Déconnexion Admin</button>
+        <div id="imagePreview" class="row"></div>
+    </div>
+
+    <script>
+const imagePreview = document.getElementById('imagePreview');
+const logoutBtn = document.getElementById('logoutAdmin');
+const addToGalleryBtn = document.getElementById('addToGallery');
+const mainClothesGrid = document.getElementById('mainClothesGrid');
+const defaultClothesGrid = document.getElementById('defaultClothesGrid');
+let images = JSON.parse(localStorage.getItem('images') || '[]'); // [{src, desc}]
+let tempImages = []; // [{src, desc}]
+
+const MAX_IMAGES = 500; // Limite à 500 images
+
+function isAdmin() {
+    return localStorage.getItem('isAdmin') === "true";
+}
+
+function askAdmin() {
+    const adminPassword = "admin123";
+    if (!isAdmin()) {
+        const pwd = prompt("Accès réservé à l'administrateur. Veuillez entrer le mot de passe :");
+        if (pwd === adminPassword) {
+            localStorage.setItem('isAdmin', "true");
+        }
+    }
+    showAdminSection();
+    renderImages();
+}
+
+function showAdminSection() {
+    if (isAdmin()) {
+        document.getElementById('adminUploadSection').style.display = "block";
+        logoutBtn.style.display = "inline-block";
+        addToGalleryBtn.style.display = tempImages.length > 0 ? "inline-block" : "none";
+    } else {
+        document.getElementById('adminUploadSection').style.display = "none";
+        logoutBtn.style.display = "none";
+        addToGalleryBtn.style.display = "none";
+    }
+}
+
+logoutBtn.addEventListener('click', function() {
+    localStorage.removeItem('isAdmin');
+    showAdminSection();
+    renderImages();
+});
+
+// Modifie la structure pour demander description et prix lors de l'upload
+document.getElementById('imageUpload')?.addEventListener('change', function(event) {
+    if (!isAdmin()) return;
+    // Vérifie la limite avant d'ajouter
+    if (images.length + event.target.files.length > MAX_IMAGES) {
+        alert("Limite atteinte : maximum " + MAX_IMAGES + " images dans la galerie.");
+        event.target.value = "";
+        return;
+    }
+    tempImages = [];
+    const files = Array.from(event.target.files);
+    let loaded = 0;
+    files.forEach((file, i) => {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const desc = prompt("Description pour l'image " + (i+1) + " ?");
+            const prix = prompt("Prix en dirham pour l'image " + (i+1) + " ?");
+            tempImages.push({src: e.target.result, desc: desc || "", prix: prix || ""});
+            loaded++;
+            if (loaded === files.length) {
+                renderTempImages();
+                showAdminSection();
+            }
+        };
+        reader.readAsDataURL(file);
+    });
+    event.target.value = "";
+    // Affiche le bouton "Ajouter à la galerie" si des images sont sélectionnées
+    addToGalleryBtn.style.display = files.length > 0 ? "inline-block" : "none";
+});
+
+addToGalleryBtn.addEventListener('click', function() {
+    if (!isAdmin()) return;
+    // Vérifie la limite avant d'ajouter
+    if (images.length + tempImages.length > MAX_IMAGES) {
+        alert("Limite atteinte : maximum " + MAX_IMAGES + " images dans la galerie.");
+        return;
+    }
+    images = images.concat(tempImages);
+    saveImages();
+    tempImages = [];
+    renderImages();
+    renderTempImages();
+    showAdminSection();
+    // Cache le bouton après ajout
+    addToGalleryBtn.style.display = "none";
+});
+
+function saveImages() {
+    localStorage.setItem('images', JSON.stringify(images));
+}
+
+function renderImages() {
+    imagePreview.innerHTML = '';
+    mainClothesGrid.innerHTML = '';
+    images.forEach((img, idx) => {
+        const col = document.createElement('div');
+        col.className = 'clothes-item position-relative';
+        col.innerHTML = `
+            <img src="${img.src}" alt="Vêtement" class="img-fluid" style="height:300px;object-fit:cover;">
+            <p>${img.desc || ""}</p>
+            <div class="price">${img.prix ? img.prix + " DH" : ""}</div>
+            ${
+                isAdmin()
+                ? `<button class="btn btn-danger btn-sm position-absolute top-0 end-0 m-2" onclick="deleteImage(${idx})" title="Supprimer">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                    <button class="btn btn-warning btn-sm position-absolute top-0 start-0 m-2" onclick="updateImage(${idx})" title="Mettre à jour">
+                        <i class="bi bi-pencil"></i>
+                    </button>`
+                : ''
+            }
+        `;
+        mainClothesGrid.appendChild(col);
+    });
+}
+
+function renderTempImages() {
+    let tempPreview = document.getElementById('tempImagePreview');
+    if (!tempPreview) {
+        tempPreview = document.createElement('div');
+        tempPreview.id = 'tempImagePreview';
+        tempPreview.className = 'row';
+        imagePreview.parentNode.insertBefore(tempPreview, imagePreview);
+    }
+    tempPreview.innerHTML = '';
+    tempImages.forEach(img => {
+        const col = document.createElement('div');
+        col.className = 'col-md-3 mb-3';
+        col.innerHTML = `
+            <div class="clothes-item position-relative border border-primary">
+                <img src="${img.src}" alt="Image sélectionnée" class="img-fluid" style="height:300px;object-fit:cover;">
+                <p>${img.desc || ""}</p>
+                <div class="price">${img.prix ? img.prix + " DH" : ""}</div>
+            </div>
+        `;
+        tempPreview.appendChild(col);
+    });
+}
+
+window.deleteImage = function(idx) {
+    if (!isAdmin()) return;
+    images.splice(idx, 1);
+    saveImages();
+    renderImages();
+};
+
+window.updateImage = function(idx) {
+    if (!isAdmin()) return;
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.onchange = function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(ev) {
+                const desc = prompt("Nouvelle description pour l'image ?");
+                const prix = prompt("Nouveau prix en dirham ?");
+                images[idx] = {src: ev.target.result, desc: desc || "", prix: prix || ""};
+                saveImages();
+                renderImages();
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+    input.click();
+};
+
+askAdmin();
+    </script>
+
     <!-- Footer -->
     <footer>
         <div class="container text-center">
